@@ -1,0 +1,52 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  email: String!
+  password: String!
+  role: UserRole!
+}
+
+enum UserRole {
+  Client
+  Owner
+  Delivery
+}
+
+type CommonResponseOutput {
+  error: String
+  ok: Boolean!
+}
+
+type LoginOutput {
+  error: String
+  ok: Boolean!
+  token: String
+}
+
+type Query {
+  me: User!
+}
+
+type Mutation {
+  updatePassword(input: UpdatePasswordInput!): CommonResponseOutput!
+  createAccount(input: CreateAccountInput!): CommonResponseOutput!
+  login(input: LoginInput!): LoginOutput!
+}
+
+input UpdatePasswordInput {
+  email: String!
+  password: String!
+}
+
+input CreateAccountInput {
+  email: String!
+  password: String!
+  role: UserRole!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
