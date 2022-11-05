@@ -1,5 +1,5 @@
 // nestjs
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 // orm
 import { Repository } from 'typeorm';
@@ -62,7 +62,10 @@ export class UserService {
   async login({ email, password }: LoginInput): Promise<LoginOutput> {
     const response: LoginOutput = { ok: false };
     try {
-      const targetUser = await this.users.findOne({ where: { email } });
+      const targetUser = await this.users.findOne({
+        where: { email },
+        select: ['id', 'password'],
+      });
       // 用户未注册
       const errorData = { error: '用户名或密码错误', token: undefined };
       Object.assign(response, errorData);
@@ -77,7 +80,11 @@ export class UserService {
     }
   }
 
-  async findById(id: number) {
-    return this.users.findOne({ where: { id } });
+  async findUserById(id: number): Promise<User> {
+    const res = await this.users.findOne({ where: { id } });
+    if (!res) {
+      throw new BadRequestException('用户不存在');
+    }
+    return res;
   }
 }

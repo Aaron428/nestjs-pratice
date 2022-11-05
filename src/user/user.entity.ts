@@ -32,7 +32,7 @@ export class User extends CoreEntity {
   email: string;
 
   @Field(() => String)
-  @Column()
+  @Column({ select: false })
   @Length(6, 32)
   password: string;
 
@@ -40,6 +40,10 @@ export class User extends CoreEntity {
   @IsEnum(UserRole)
   @Column({ type: 'enum', enum: UserRole })
   role: UserRole;
+
+  @Field(() => Boolean)
+  @Column({ default: false })
+  verified: boolean;
 
   // 修改密码和注册用户时对密码加盐
   @BeforeInsert()

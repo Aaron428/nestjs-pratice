@@ -28,11 +28,7 @@ export class UserResolver {
   async updatePassword(
     @Args('input') updatePasswordInput: UpdatePasswordInput,
   ): Promise<CommonResponseOutput> {
-    try {
-      return this.userService.updatePassword(updatePasswordInput);
-    } catch (error) {
-      return { ok: false, error };
-    }
+    return this.userService.updatePassword(updatePasswordInput);
   }
 
   // 创建用户
@@ -40,20 +36,12 @@ export class UserResolver {
   async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
   ): Promise<CommonResponseOutput> {
-    try {
-      return this.userService.createAccount(createAccountInput);
-    } catch (error) {
-      return { ok: false, error };
-    }
+    return this.userService.createAccount(createAccountInput);
   }
 
   // 登录
   @Mutation(() => LoginOutput)
   async login(@Args('input') loginInput: LoginInput): Promise<LoginOutput> {
-    try {
-      return await this.userService.login(loginInput);
-    } catch (error) {
-      return { ok: false, error };
-    }
+    return this.userService.login(loginInput);
   }
 }

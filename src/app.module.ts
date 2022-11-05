@@ -16,6 +16,7 @@ import { UserModule } from '@user/user.module';
 // import { Restaurant } from '@restaurant/entities/restaurant.entity';
 import { User } from '@user/user.entity';
 import { NestModule } from '@nestjs/common';
+import { Verification } from '@user/verification.entity';
 // middleware
 import { JwtMiddleware } from '@jwt/jwt.middleware';
 import { AuthModule } from './auth/auth.module';
@@ -42,8 +43,8 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PSD,
       username: process.env.DB_USERNAME,
       synchronize: process.env.NODE_ENV !== 'prod',
-      logging: true,
-      entities: [User],
+      // logging: true,
+      entities: [User, Verification],
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
